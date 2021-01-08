@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use League\CommonMark\CommonMarkConverter;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Answer extends Model
 {
@@ -35,5 +36,10 @@ class Answer extends Model
             $answer->question->increment('answers_count');
             $answer->question->save();
         });
+    }
+
+    public function getCreatedDateAttribute()
+    {
+        return $this->created_at->diffForHumans();
     }
 }
